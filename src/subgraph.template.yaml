@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+schema:
+  file: ./src/schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: CarbonizedCollection
+    network: "{{network}}"
+    source:
+      address: "{{CarbonizedCollection}}"
+      abi: CarbonizedCollection
+      startBlock: {{CarbonizedCollectionStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - CarbonizedNFT
+      abis:
+        - name: CarbonizedCollection
+          file: ./abis/CarbonizedCollection.json
+      eventHandlers:
+        - event: CarbonizedToken(uint256,uint256)
+          handler: handleCarbonizedToken
+        - event: DecarbonizedToken(uint256)
+          handler: handleDecarbonizedToken
+      file: ./src/mapping.ts

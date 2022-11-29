@@ -1,0 +1,4 @@
+type CarbonizedNFT @entity {
+  id: String!
+  staked: BigInt!
+}
